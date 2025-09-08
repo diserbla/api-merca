@@ -11,16 +11,12 @@ type UsuarioRepository struct {
 }
 
 func (r *UsuarioRepository) Crear(u *models.Usuario) error {
-	return r.DB.Create(u).Error
+	result := r.DB.Create(u)
+	return result.Error
 }
 
 func (r *UsuarioRepository) ObtenerPorID(codUsu int) (*models.Usuario, error) {
-	var u models.Usuario
-	if err := r.DB.First(&u, codUsu).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			return nil, nil
-		}
-		return nil, err
-	}
-	return &u, nil
+	var usuario models.Usuario
+	result := r.DB.First(&usuario, codUsu)
+	return &usuario, result.Error
 }

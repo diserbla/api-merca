@@ -4,14 +4,14 @@ import (
 	"api-merca/internal/handlers"
 	"api-merca/internal/repositories"
 	"api-merca/internal/services"
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/joho/godotenv"
-	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -26,17 +26,19 @@ func main() {
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
 	connStr := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbPort, dbUser, dbPassword, dbName,
 	)
 
-	db, err := sql.Open("postgres", connStr)
+	db, err := gorm.Open(postgres.Open(connStr), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Error al conectar a la base de datos:", err)
 	}
-	defer db.Close()
 
 	repo := &repositories.UsuarioRepository{DB: db}
 	service := &services.UsuarioService{Repo: repo}
