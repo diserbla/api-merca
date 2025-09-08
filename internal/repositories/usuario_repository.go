@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"api-merca/internal/models"
+	models "api-merca/internal/models/usuarios"
 
 	"gorm.io/gorm"
 )

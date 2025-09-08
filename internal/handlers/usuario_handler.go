@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"api-merca/internal/models"
+	models "api-merca/internal/models/usuarios"
 	"api-merca/internal/services"
 	"encoding/json"
 	"net/http"

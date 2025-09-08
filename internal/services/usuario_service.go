@@ -1,7 +1,7 @@
 package services
 
 import (
-	"api-merca/internal/models"
+	models "api-merca/internal/models/usuarios"
 	"api-merca/internal/repositories"
 	"fmt"
 	"time"
