@@ -12,6 +12,16 @@ type UsuarioHandler struct {
 	Service *services.UsuarioService
 }
 
+func (h *UsuarioHandler) ObtenerUsuarios(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	usuarios, err := h.Service.GetAllUsuarios()
+	if err != nil {
+		http.Error(w, "Error al obtener usuarios", http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(usuarios)
+}
+
 func (h *UsuarioHandler) CrearUsuario(w http.ResponseWriter, r *http.Request) {
 	var u models.Usuario
 	if err := json.NewDecoder(r.Body).Decode(&u); err != nil {

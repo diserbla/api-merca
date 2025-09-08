@@ -10,6 +10,14 @@ type UsuarioRepository struct {
 	DB *gorm.DB
 }
 
+func (r *UsuarioRepository) GetAll() ([]models.Usuario, error) {
+	var usuarios []models.Usuario
+	if err := r.DB.Find(&usuarios).Error; err != nil {
+		return nil, err
+	}
+	return usuarios, nil
+}
+
 func (r *UsuarioRepository) Crear(u *models.Usuario) error {
 	result := r.DB.Create(u)
 	return result.Error

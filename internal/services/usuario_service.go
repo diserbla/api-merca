@@ -11,6 +11,10 @@ type UsuarioService struct {
 	Repo *repositories.UsuarioRepository
 }
 
+func (s *UsuarioService) GetAllUsuarios() ([]models.Usuario, error) {
+	return s.Repo.GetAll()
+}
+
 func (s *UsuarioService) CrearUsuario(u *models.Usuario) error {
 	if u.NomUsu == "" || u.ClaveUsu == "" || u.IdUsu == "" {
 		return fmt.Errorf("nombre, clave e id_usu son obligatorios")

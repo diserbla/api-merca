@@ -44,6 +44,7 @@ func main() {
 	service := &services.UsuarioService{Repo: repo}
 	handler := &handlers.UsuarioHandler{Service: service}
 
+	http.HandleFunc("/usuarios/all", handler.ObtenerUsuarios)
 	http.HandleFunc("/usuarios", handler.CrearUsuario)
 	http.HandleFunc("/usuarios/get", handler.ObtenerUsuario)
 
