@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	models "api-merca/internal/models/usuarios"
+	"api-merca/internal/models"
 
 	"gorm.io/gorm"
 )
@@ -18,13 +18,22 @@ func (r *UsuarioRepository) GetAll() ([]models.Usuario, error) {
 	return usuarios, nil
 }
 
-func (r *UsuarioRepository) Crear(u *models.Usuario) error {
-	result := r.DB.Create(u)
-	return result.Error
+func (r *UsuarioRepository) GetByID(id int) (*models.Usuario, error) {
+	var usuario models.Usuario
+	if err := r.DB.First(&usuario, id).Error; err != nil {
+		return nil, err
+	}
+	return &usuario, nil
 }
 
-func (r *UsuarioRepository) ObtenerPorID(codUsu int) (*models.Usuario, error) {
-	var usuario models.Usuario
-	result := r.DB.First(&usuario, codUsu)
-	return &usuario, result.Error
+func (r *UsuarioRepository) Create(usuario *models.Usuario) error {
+	return r.DB.Create(usuario).Error
+}
+
+func (r *UsuarioRepository) Update(usuario *models.Usuario) error {
+	return r.DB.Save(usuario).Error
+}
+
+func (r *UsuarioRepository) Delete(id int) error {
+	return r.DB.Delete(&models.Usuario{}, id).Error
 }

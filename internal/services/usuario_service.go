@@ -1,32 +1,35 @@
 package services
 
-import (
-	models "api-merca/internal/models/usuarios"
-	"api-merca/internal/repositories"
-	"fmt"
-	"time"
-)
+import "api-merca/internal/models"
 
 type UsuarioService struct {
-	Repo *repositories.UsuarioRepository
+	Repo UsuarioRepositoryInterface
+}
+
+type UsuarioRepositoryInterface interface {
+	GetAll() ([]models.Usuario, error)
+	GetByID(id int) (*models.Usuario, error)
+	Create(u *models.Usuario) error
+	Update(u *models.Usuario) error
+	Delete(id int) error
 }
 
 func (s *UsuarioService) GetAllUsuarios() ([]models.Usuario, error) {
 	return s.Repo.GetAll()
 }
 
-func (s *UsuarioService) CrearUsuario(u *models.Usuario) error {
-	if u.NomUsu == "" || u.ClaveUsu == "" || u.IdUsu == "" {
-		return fmt.Errorf("nombre, clave e id_usu son obligatorios")
-	}
-
-	// Actualizar fecha de última modificación
-	u.UsrUltModif = 1 // ejemplo: usuario que hace la modificación
-	u.FecUltModif = time.Now()
-
-	return s.Repo.Crear(u)
+func (s *UsuarioService) GetUsuarioByID(id int) (*models.Usuario, error) {
+	return s.Repo.GetByID(id)
 }
 
-func (s *UsuarioService) ObtenerUsuarioPorID(codUsu int) (*models.Usuario, error) {
-	return s.Repo.ObtenerPorID(codUsu)
+func (s *UsuarioService) CreateUsuario(u *models.Usuario) error {
+	return s.Repo.Create(u)
+}
+
+func (s *UsuarioService) UpdateUsuario(u *models.Usuario) error {
+	return s.Repo.Update(u)
+}
+
+func (s *UsuarioService) DeleteUsuario(id int) error {
+	return s.Repo.Delete(id)
 }
