@@ -3,14 +3,14 @@ package handlers
 import (
 	"net/http"
 
-			"api-merca/internal/database"
-	"api-merca/internal/models/maelote"
+	"api-merca/internal/database"
+	models "api-merca/internal/models/maelote"
 
 	"github.com/gin-gonic/gin"
 )
 
-// GET /maelotes
-func GetMaelotes(c *gin.Context) {
+// GET /maelote
+func GetMaeloteList(c *gin.Context) {
 	var maelotes []models.Maelote
 	if err := database.DB.Find(&maelotes).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -19,7 +19,7 @@ func GetMaelotes(c *gin.Context) {
 	c.JSON(http.StatusOK, maelotes)
 }
 
-// GET /maelotes/:id
+// GET /maelote/:id
 func GetMaeloteByID(c *gin.Context) {
 	id := c.Param("id")
 	var maelote models.Maelote
@@ -30,7 +30,7 @@ func GetMaeloteByID(c *gin.Context) {
 	c.JSON(http.StatusOK, maelote)
 }
 
-// POST /maelotes
+// POST /maelote
 func CreateMaelote(c *gin.Context) {
 	var maelote models.Maelote
 	if err := c.ShouldBindJSON(&maelote); err != nil {
@@ -44,7 +44,7 @@ func CreateMaelote(c *gin.Context) {
 	c.JSON(http.StatusCreated, maelote)
 }
 
-// PUT /maelotes/:id
+// PUT /maelote/:id
 func UpdateMaelote(c *gin.Context) {
 	id := c.Param("id")
 	var maelote models.Maelote
@@ -66,7 +66,7 @@ func UpdateMaelote(c *gin.Context) {
 	c.JSON(http.StatusOK, maelote)
 }
 
-// DELETE /maelotes/:id
+// DELETE /maelote/:id
 func DeleteMaelote(c *gin.Context) {
 	id := c.Param("id")
 	if err := database.DB.Delete(&models.Maelote{}, "cod_lot = ?", id).Error; err != nil {

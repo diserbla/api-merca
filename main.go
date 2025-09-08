@@ -4,16 +4,26 @@ import (
 	"api-merca/internal/config"
 	"api-merca/internal/database"
 	"api-merca/internal/routes"
+	"fmt"
+	"log"
 )
 
 func main() {
-	// cargar configuración
+	// Cargar configuración
 	cfg := config.LoadConfig()
 
-	// conectar DB
+	// Conectar DB
 	database.ConnectDB(cfg)
+	log.Println("✅ Conexión a la base de datos establecida")
 
-	// iniciar servidor
+	// Iniciar servidor
 	r := routes.SetupRouter()
-	r.Run(":8080")
+
+	// Puerto desde .env (ej: SERVER_PORT=8080)
+	port := fmt.Sprintf(":%s", cfg.ServerPort)
+	log.Printf("🚀 Servidor escuchando en http://localhost%s\n", port)
+
+	if err := r.Run(port); err != nil {
+		log.Fatalf("❌ Error al iniciar servidor: %v", err)
+	}
 }
