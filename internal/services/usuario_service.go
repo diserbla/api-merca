@@ -3,7 +3,7 @@ package services
 import (
 	"api-merca/internal/models"
 	"api-merca/internal/repositories"
-	"errors"
+	"fmt"
 	"time"
 )
 
@@ -11,21 +11,18 @@ type UsuarioService struct {
 	Repo *repositories.UsuarioRepository
 }
 
-// CrearUsuario valida campos y luego lo crea
 func (s *UsuarioService) CrearUsuario(u *models.Usuario) error {
-	if u.NomUsu == "" || u.ClaveUsu == "" || u.IDUsu == "" {
-		return errors.New("nombre, clave e id_usu son obligatorios")
+	if u.NomUsu == "" || u.ClaveUsu == "" || u.IdUsu == "" {
+		return fmt.Errorf("nombre, clave e id_usu son obligatorios")
 	}
 
-	// Asignar fecha de última modificación si no está
-	if u.FecUltModif.IsZero() {
-		u.FecUltModif = time.Now()
-	}
+	// Actualizar fecha de última modificación
+	u.UsrUltModif = 1 // ejemplo: usuario que hace la modificación
+	u.FecUltModif = time.Now()
 
-	return s.Repo.CrearUsuario(u)
+	return s.Repo.Crear(u)
 }
 
-// ObtenerUsuarioPorID devuelve un usuario por cod_usu
 func (s *UsuarioService) ObtenerUsuarioPorID(codUsu int) (*models.Usuario, error) {
-	return s.Repo.ObtenerUsuarioPorID(codUsu)
+	return s.Repo.ObtenerPorID(codUsu)
 }

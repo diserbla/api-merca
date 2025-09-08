@@ -12,7 +12,6 @@ type UsuarioHandler struct {
 	Service *services.UsuarioService
 }
 
-// CrearUsuario maneja POST /usuarios
 func (h *UsuarioHandler) CrearUsuario(w http.ResponseWriter, r *http.Request) {
 	var u models.Usuario
 	if err := json.NewDecoder(r.Body).Decode(&u); err != nil {
@@ -29,7 +28,6 @@ func (h *UsuarioHandler) CrearUsuario(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(u)
 }
 
-// ObtenerUsuario maneja GET /usuarios/{id}
 func (h *UsuarioHandler) ObtenerUsuario(w http.ResponseWriter, r *http.Request) {
 	idStr := r.URL.Query().Get("cod_usu")
 	codUsu, err := strconv.Atoi(idStr)
