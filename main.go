@@ -1,8 +1,8 @@
 package main
 
 import (
-	"api-merca/internal/init"
 	"api-merca/internal/routes"
+	"api-merca/internal/setup"
 	"fmt"
 	"log"
 	"net/http"
@@ -28,9 +28,9 @@ func main() {
 	r := mux.NewRouter()
 
 	// Inicializar handlers
-	usuarioHandler := init.InitUsuarioHandler(db)
-	maeloteHandler := init.InitMaeloteHandler(db)
-	maeraspasHandler := init.InitMaeraspasHandler(db)
+	usuarioHandler := setup.InitUsuarioHandler(db)
+	maeloteHandler := setup.InitMaeloteHandler(db)
+	maeraspasHandler := setup.InitMaeraspasHandler(db)
 
 	// Rutas
 	routes.UsuariosRoutes(r, usuarioHandler)

@@ -1,32 +1,32 @@
 package services
 
-import "api-merca/internal/models"
+import "api-merca/internal/models/maelote"
 
 type MaeloteService struct {
 	Repo MaeloteRepositoryInterface
 }
 
 type MaeloteRepositoryInterface interface {
-	GetAll() ([]models.Maelote, error)
-	GetByID(cod string) (*models.Maelote, error)
-	Create(l *models.Maelote) error
-	Update(l *models.Maelote) error
+	GetAll() ([]maelote.Maelote, error)
+	GetByID(cod string) (*maelote.Maelote, error)
+	Create(l *maelote.Maelote) error
+	Update(l *maelote.Maelote) error
 	Delete(cod string) error
 }
 
-func (s *MaeloteService) GetAllMaelotes() ([]models.Maelote, error) {
+func (s *MaeloteService) GetAllMaelotes() ([]maelote.Maelote, error) {
 	return s.Repo.GetAll()
 }
 
-func (s *MaeloteService) GetMaeloteByID(cod string) (*models.Maelote, error) {
+func (s *MaeloteService) GetMaeloteByID(cod string) (*maelote.Maelote, error) {
 	return s.Repo.GetByID(cod)
 }
 
-func (s *MaeloteService) CreateMaelote(l *models.Maelote) error {
+func (s *MaeloteService) CreateMaelote(l *maelote.Maelote) error {
 	return s.Repo.Create(l)
 }
 
-func (s *MaeloteService) UpdateMaelote(l *models.Maelote) error {
+func (s *MaeloteService) UpdateMaelote(l *maelote.Maelote) error {
 	return s.Repo.Update(l)
 }
 

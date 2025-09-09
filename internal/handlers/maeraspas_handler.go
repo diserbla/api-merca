@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"api-merca/internal/models"
+	"api-merca/internal/models/maeraspas"
 	"api-merca/internal/services"
 	"encoding/json"
 	"net/http"
@@ -16,7 +16,7 @@ type MaeraspasHandler struct {
 
 func (h *MaeraspasHandler) CrearMaeraspas(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var item models.Maeraspas
+	var item maeraspas.Maeraspas
 	if err := json.NewDecoder(r.Body).Decode(&item); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -54,7 +54,7 @@ func (h *MaeraspasHandler) ActualizarMaeraspas(w http.ResponseWriter, r *http.Re
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["codigo"])
-	var item models.Maeraspas
+	var item maeraspas.Maeraspas
 	if err := json.NewDecoder(r.Body).Decode(&item); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return

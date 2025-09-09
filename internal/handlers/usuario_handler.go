@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"api-merca/internal/models"
+	"api-merca/internal/models/usuarios"
 	"api-merca/internal/services"
 	"encoding/json"
 	"net/http"
@@ -16,7 +16,7 @@ type UsuarioHandler struct {
 
 func (h *UsuarioHandler) CrearUsuario(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var usuario models.Usuario
+	var usuario usuarios.Usuario
 	if err := json.NewDecoder(r.Body).Decode(&usuario); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -54,7 +54,7 @@ func (h *UsuarioHandler) ActualizarUsuario(w http.ResponseWriter, r *http.Reques
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["cod_usu"])
-	var usuario models.Usuario
+	var usuario usuarios.Usuario
 	if err := json.NewDecoder(r.Body).Decode(&usuario); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return

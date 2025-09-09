@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"api-merca/internal/models"
+	"api-merca/internal/models/maelote"
 	"api-merca/internal/services"
 	"encoding/json"
 	"net/http"
@@ -15,7 +15,7 @@ type MaeloteHandler struct {
 
 func (h *MaeloteHandler) CrearMaelote(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var lote models.Maelote
+	var lote maelote.Maelote
 	if err := json.NewDecoder(r.Body).Decode(&lote); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -53,7 +53,7 @@ func (h *MaeloteHandler) ActualizarMaelote(w http.ResponseWriter, r *http.Reques
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	cod := params["cod_lot"]
-	var lote models.Maelote
+	var lote maelote.Maelote
 	if err := json.NewDecoder(r.Body).Decode(&lote); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return

@@ -1,32 +1,32 @@
 package services
 
-import "api-merca/internal/models"
+import "api-merca/internal/models/usuarios"
 
 type UsuarioService struct {
 	Repo UsuarioRepositoryInterface
 }
 
 type UsuarioRepositoryInterface interface {
-	GetAll() ([]models.Usuario, error)
-	GetByID(id int) (*models.Usuario, error)
-	Create(u *models.Usuario) error
-	Update(u *models.Usuario) error
+	GetAll() ([]usuarios.Usuario, error)
+	GetByID(id int) (*usuarios.Usuario, error)
+	Create(u *usuarios.Usuario) error
+	Update(u *usuarios.Usuario) error
 	Delete(id int) error
 }
 
-func (s *UsuarioService) GetAllUsuarios() ([]models.Usuario, error) {
+func (s *UsuarioService) GetAllUsuarios() ([]usuarios.Usuario, error) {
 	return s.Repo.GetAll()
 }
 
-func (s *UsuarioService) GetUsuarioByID(id int) (*models.Usuario, error) {
+func (s *UsuarioService) GetUsuarioByID(id int) (*usuarios.Usuario, error) {
 	return s.Repo.GetByID(id)
 }
 
-func (s *UsuarioService) CreateUsuario(u *models.Usuario) error {
+func (s *UsuarioService) CreateUsuario(u *usuarios.Usuario) error {
 	return s.Repo.Create(u)
 }
 
-func (s *UsuarioService) UpdateUsuario(u *models.Usuario) error {
+func (s *UsuarioService) UpdateUsuario(u *usuarios.Usuario) error {
 	return s.Repo.Update(u)
 }
 
